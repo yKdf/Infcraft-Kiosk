@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f172a">
+  <title>Infcraft Kiosk</title>
+  <link rel="stylesheet" href="/style.css">
+  <script defer src="/app.js"></script>
+</head>
+<body>
+  <div class="wallpaper" aria-hidden="true"></div>
+  <header class="topbar">
+    <div class="nav-shell">
+      <a class="brand" href="/" aria-label="Infcraft Kiosk"><img src="/infcraft-logo.svg" alt="Infcraft"><span>Kiosk</span></a>
+      <span class="status-pill"><i></i><span id="connection">Administração local</span></span>
+    </div>
+  </header>
+  <main>
+    <section class="hero"><p class="eyebrow">PAINEL DO DISPOSITIVO</p><h1>Controle seu kiosk<br><span>em um só lugar.</span></h1><p>Gerencie a tela, o endereço e o modo kiosk do tablet Infcraft.</p></section>
+    <section id="login" class="card login-card">
+      <div class="card-heading"><span class="icon-box">&#9638;</span><div><p class="kicker">ACESSO SEGURO</p><h2>Conectar ao tablet</h2></div></div>
+      <p>Use a chave de administração exibida na primeira abertura.</p>
+      <form id="loginForm"><label for="token">Chave de administração</label><input id="token" type="password" autocomplete="current-password" required><label class="toggle"><input id="remember" type="checkbox" checked><span>Lembrar neste navegador por 30 dias<small>Use somente em um dispositivo seu.</small></span></label><button class="primary wide">Entrar no painel <span>&rarr;</span></button></form>
+      <p class="hint secure-note">Acesso HTTPS local protegido pelo certificado do tablet.</p>
+    </section>
+    <div id="dashboard" hidden>
+      <section class="stats"><article class="card stat"><span class="kicker">DISPOSITIVO</span><strong id="model">—</strong><small id="address"></small></article><article class="card stat"><span class="kicker">PROTEÇÃO ANDROID</span><strong id="owner">—</strong><small id="protection"></small></article></section>
+      <form id="settings" class="card settings-card">
+        <div class="section-title"><div><span class="step">01</span><h2>Experiência na tela</h2></div><span>CONFIGURAÇÃO</span></div>
+        <label for="url">Endereço do site</label><input id="url" type="url" required><p class="hint">O tablet abre este endereço ao iniciar e ao usar “Recarregar site”. Salve o endereço antes de recarregar.</p>
+        <div class="columns"><div><label for="orientation">Orientação</label><select id="orientation"><option value="landscape">Horizontal</option><option value="portrait">Vertical</option><option value="auto">Automática</option></select></div><div><label for="brightness">Brilho <output id="brightnessValue">70%</output></label><input id="brightness" type="range" min="5" max="100"></div></div>
+        <label class="toggle feature-toggle"><input id="kiosk" type="checkbox"><span>Ativar modo kiosk<small>Bloqueia o teclado virtual, Home e aplicativos recentes.</small></span></label>
+        <div class="info-box"><span>i</span><p>A atualização automática é controlada pelo próprio Grafana. O aplicativo respeita o intervalo configurado no dashboard.</p></div>
+        <section class="subsection">
+          <div class="section-title"><div><span class="step">02</span><h2>Descanso por inatividade</h2></div><span>TELA</span></div>
+          <p class="hint">A contagem começa no último toque. O primeiro toque durante o descanso restaura a tela sem acionar o dashboard.</p>
+          <div class="columns three"><div><label for="idleDimSeconds">Reduzir após</label><div class="unit-input"><input id="idleDimSeconds" type="number" min="0" max="86400" step="1" required><span>seg</span></div></div><div><label for="idleBrightness">Brilho de descanso</label><div class="unit-input"><input id="idleBrightness" type="number" min="1" max="100" step="1" required><span>%</span></div></div><div><label for="idleBlackSeconds">Tela preta após</label><div class="unit-input"><input id="idleBlackSeconds" type="number" min="0" max="86400" step="1" required><span>seg</span></div></div></div>
+          <p class="hint">Use 0 para desativar um temporizador. A tela preta mantém o toque ativo com o brilho no mínimo.</p>
+        </section>
+        <div class="actions"><button type="submit" class="primary" id="save">Salvar alterações</button><button class="secondary" type="button" id="reload">Recarregar site</button></div>
+      </form>
+      <section class="card screen-control"><div class="section-title"><div><span class="step">03</span><h2>Controle da tela</h2></div><span id="screenState">—</span></div><p id="idleStatus" class="hint" aria-live="off"></p><div class="actions"><button type="button" class="secondary" id="blackScreen">Tela preta agora</button><button type="button" class="secondary" id="wakeScreen">Restaurar tela</button></div></section>
+      <footer><span>Infcraft Kiosk · v1.5</span><button class="link" id="logout">Sair do painel</button></footer>
+    </div>
+    <p id="message" role="status" aria-live="polite"></p>
+  </main>
+</body>
+</html>

@@ -1,0 +1,6 @@
+/tools/sdk/
+/build/
+/.private/
+*.apk
+__pycache__/
+*.pyc
