@@ -38,11 +38,18 @@
           <div class="columns three"><div><label for="idleDimSeconds">Reduzir após</label><div class="unit-input"><input id="idleDimSeconds" type="number" min="0" max="86400" step="1" required><span>seg</span></div></div><div><label for="idleBrightness">Brilho de descanso</label><div class="unit-input"><input id="idleBrightness" type="number" min="1" max="100" step="1" required><span>%</span></div></div><div><label for="idleBlackSeconds">Tela preta após</label><div class="unit-input"><input id="idleBlackSeconds" type="number" min="0" max="86400" step="1" required><span>seg</span></div></div></div>
           <p class="hint">Use 0 para desativar um temporizador. A tela preta mantém o toque ativo com o brilho no mínimo.</p>
         </section>
+        <section class="subsection power-settings">
+          <div class="section-title"><div><span class="step">03</span><h2>Desligamento real do display</h2></div><span>ENERGIA</span></div>
+          <p class="hint">Esta opção apaga fisicamente o display. Diferente da tela preta acima, o toque não religa a tela; ela volta pelo horário configurado, pelo botão abaixo ou pelo botão físico.</p>
+          <div class="columns"><div><label for="screenOffIdleSeconds">Desligar após inatividade</label><div class="unit-input"><input id="screenOffIdleSeconds" type="number" min="0" max="86400" step="1" required><span>seg</span></div><p class="hint">Use 0 para desativar.</p></div><div><label class="toggle feature-toggle"><input id="screenOffScheduleEnabled" type="checkbox"><span>Usar período diário<small>Desliga e religa automaticamente todos os dias.</small></span></label></div></div>
+          <div class="columns schedule-fields" id="scheduleFields"><div><label for="screenOffTime">Desligar às</label><input id="screenOffTime" type="time" step="60" required></div><div><label for="screenOnTime">Ligar às</label><input id="screenOnTime" type="time" step="60" required></div></div>
+          <div class="info-box"><span>i</span><p>O desligamento real requer o aplicativo configurado como administrador principal (Device Owner).</p></div>
+        </section>
         <div class="actions"><button type="submit" class="primary" id="save">Salvar alterações</button><button class="secondary" type="button" id="reload">Recarregar site</button></div>
       </form>
-      <section class="card site-control"><div class="section-title"><div><span class="step">03</span><h2>Carregamento do site</h2></div><span id="webState">—</span></div><p id="webStatus" class="hint" aria-live="polite"></p><div class="actions"><button type="button" class="secondary" id="retrySite">Tentar carregar agora</button></div></section>
-      <section class="card screen-control"><div class="section-title"><div><span class="step">04</span><h2>Controle da tela</h2></div><span id="screenState">—</span></div><p id="idleStatus" class="hint" aria-live="off"></p><div class="actions"><button type="button" class="secondary" id="blackScreen">Tela preta agora</button><button type="button" class="secondary" id="wakeScreen">Restaurar tela</button></div></section>
-      <footer><span>Infcraft Kiosk · v1.5.1</span><button class="link" id="logout">Sair do painel</button></footer>
+      <section class="card site-control"><div class="section-title"><div><span class="step">04</span><h2>Carregamento do site</h2></div><span id="webState">—</span></div><p id="webStatus" class="hint" aria-live="polite"></p><div class="actions"><button type="button" class="secondary" id="retrySite">Tentar carregar agora</button></div></section>
+      <section class="card screen-control"><div class="section-title"><div><span class="step">05</span><h2>Controle da tela</h2></div><span id="screenState">—</span></div><p id="idleStatus" class="hint" aria-live="off"></p><div class="actions"><button type="button" class="secondary" id="blackScreen">Tela preta agora</button><button type="button" class="secondary" id="wakeScreen">Restaurar brilho</button><button type="button" class="secondary danger" id="powerOffScreen">Desligar display agora</button><button type="button" class="secondary" id="powerWakeScreen">Ligar display</button></div></section>
+      <footer><span>Infcraft Kiosk · v1.6.0</span><button class="link" id="logout">Sair do painel</button></footer>
     </div>
     <p id="message" role="status" aria-live="polite"></p>
   </main>

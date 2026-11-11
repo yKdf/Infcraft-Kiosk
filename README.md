@@ -93,6 +93,17 @@ A tela preta é uma camada preta com brilho mínimo; o display continua ligado p
 
 Teste adicional no tablet: `python tests/device_idle.py`. Usa temporariamente 5/10 segundos, verifica as transições e o retorno por toque e restaura a configuração original. As capturas de verificação ficam em `build/idle-black.png` e `build/idle-awake.png`.
 
+## Desligamento real do display (v1.6)
+
+O painel mantém **Descanso por inatividade** (redução de brilho e tela preta) e oferece, em uma seção independente, **Desligamento real do display**. Há duas formas de ativação:
+
+- **Desligar após inatividade**: tempo em segundos desde o último toque. `0` desativa; valores ativos vão de 5 a 86400 segundos.
+- **Usar período diário**: define um horário para desligar e outro para ligar. Períodos que atravessam a meia-noite são aceitos, por exemplo, desligar às `22:00` e ligar às `06:00`.
+
+Esse recurso usa a política `force-lock` do Device Owner para apagar fisicamente o display. Por isso, ele só pode ser salvo quando o aplicativo é o administrador principal do aparelho. Com o display realmente desligado, o toque não o religa; use o horário programado, o botão físico ou **Ligar display** no painel. Os alarmes são recriados ao reiniciar o Android e após mudanças manuais de data ou fuso horário.
+
+Os botões **Desligar display agora** e **Ligar display** controlam o display físico sem substituir os comandos antigos **Tela preta agora** e **Restaurar brilho**.
+
 ## Atualização da página (v1.4)
 
 A atualização automática é controlada exclusivamente pelo próprio Grafana. Foram removidos a recarga programada do aplicativo, a tentativa automática após erro e a adaptação local da resposta do Grafana. URLs são salvas sem remover ou esvaziar o parâmetro `refresh`. O intervalo salvo no dashboard ou escolhido no Grafana é respeitado, sem alterar o servidor.
