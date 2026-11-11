@@ -27,6 +27,19 @@ python tools/setup-sdk.py
 
 Resultado: `build/infcraft-kiosk.apk`. O bootstrap baixa Android Platform 28 e Build Tools 35.0.0 e verifica os checksums publicados no repositório oficial. O build gera e preserva uma chave de assinatura em `.private/signing.p12`.
 
+No Windows, instale um JDK 17 ou mais recente e deixe `javac.exe` no `PATH` ou configure `JAVA_HOME`. O JDK incluído no Android Studio também é detectado automaticamente. No PowerShell:
+
+```powershell
+.\tools\setup-sdk.ps1
+.\tools\build.ps1
+```
+
+Se a política de execução bloquear scripts locais, libere-os apenas para esse processo:
+
+```powershell
+Set-ExecutionPolicy -Scope Process Bypass
+```
+
 **Faça backup de `.private/` em local seguro.** A mesma chave de assinatura é necessária para instalar atualizações sem desinstalar o aplicativo. Esses arquivos não devem ser versionados.
 
 ## Instalar em outro aparelho dedicado
@@ -109,3 +122,9 @@ Na v1.3.1, **Recarregar site** volta ao endereço salvo no painel, incluindo seu
 
 
 Na v1.4.1, o modo kiosk impede a abertura do teclado virtual na janela do aplicativo, inclusive em campos do site. Ativar kiosk também fecha o teclado já aberto. Desativar kiosk no painel devolve o comportamento normal do teclado.
+
+## Recuperação do site (v1.5.1)
+
+Falhas da página principal agora ficam visíveis no painel com o código HTTP, erro de rede ou erro de certificado e a URL correspondente. O aplicativo tenta novamente após 5, 10, 20 e 40 segundos, limitando as tentativas seguintes a intervalos de 60 segundos. Uma carga concluída limpa o erro e reinicia essa progressão. O botão **Tentar carregar agora** permite antecipar a recuperação.
+
+Se o Android encerrar ou travar o processo de renderização do WebView, o aplicativo recria o WebView e retorna ao endereço salvo. A entrada em Lock Task também espera a atividade estar em primeiro plano, evitando o crash `Invalid task, not in foreground` observado no Android 9.

@@ -22,6 +22,9 @@ assert request('/api/state',auth=False)[0]==401
 assert request('/api/config',{},False)[0]==401
 status,raw=request('/api/state');assert status==200
 original=json.loads(raw)
+assert original['webState'] in ('loading','ok','error','restarting')
+assert isinstance(original['webError'],str)
+assert isinstance(original['webRetrySeconds'],int)
 for invalid in ['javascript:alert(1)','file:///sdcard/test','https://user:pass@example.com']:
     assert request('/api/config',dict(original,url=invalid))[0]==400
 assert request('/api/config',dict(original,brightness=0))[0]==400
